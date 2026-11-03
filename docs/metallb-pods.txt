@@ -1,0 +1,3 @@
+NAME                          READY   STATUS    RESTARTS        AGE   IP                NODE                            NOMINATED NODE   READINESS GATES
+controller-6c57b67fd4-wv76f   1/1     Running   2 (3h16m ago)   21h   10.244.0.35       kuber-vmware-virtual-platform   <none>           <none>
+speaker-6jm4d                 1/1     Running   2 (3h16m ago)   21h   192.168.198.145   kuber-vmware-virtual-platform   <none>           <none>

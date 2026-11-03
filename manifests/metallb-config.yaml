@@ -1,0 +1,19 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: vmnet2-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.166.10-192.168.166.50
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: vmnet2-advertisement
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - vmnet2-pool
+  interfaces:
+    - ens37

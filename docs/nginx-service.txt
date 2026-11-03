@@ -1,0 +1,2 @@
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)        AGE    SELECTOR
+nginx-lb   LoadBalancer   10.103.37.246   192.168.166.10   80:30235/TCP   133m   app=nginx-lb

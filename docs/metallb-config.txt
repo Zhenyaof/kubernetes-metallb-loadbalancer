@@ -1,0 +1,5 @@
+NAME                                   AUTO ASSIGN   AVOID BUGGY IPS   ADDRESSES
+ipaddresspool.metallb.io/vmnet2-pool   true          false             ["192.168.166.10-192.168.166.50"]
+
+NAME                                              IPADDRESSPOOLS    IPADDRESSPOOL SELECTORS   INTERFACES
+l2advertisement.metallb.io/vmnet2-advertisement   ["vmnet2-pool"]                             ["ens37"]

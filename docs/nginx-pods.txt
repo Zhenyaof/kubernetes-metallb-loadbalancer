@@ -1,0 +1,3 @@
+NAME                        READY   STATUS    RESTARTS   AGE    IP            NODE                            NOMINATED NODE   READINESS GATES
+nginx-lb-7dfb7c8687-4pwjk   1/1     Running   0          101m   10.244.0.39   kuber-vmware-virtual-platform   <none>           <none>
+nginx-lb-7dfb7c8687-xs6p9   1/1     Running   0          135m   10.244.0.37   kuber-vmware-virtual-platform   <none>           <none>

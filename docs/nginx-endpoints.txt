@@ -1,0 +1,2 @@
+NAME             ADDRESSTYPE   PORTS   ENDPOINTS                 AGE
+nginx-lb-r4wqq   IPv4          80      10.244.0.37,10.244.0.39   133m
