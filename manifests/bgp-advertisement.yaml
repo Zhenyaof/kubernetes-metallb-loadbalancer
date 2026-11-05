@@ -1,0 +1,10 @@
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  name: bgp-vip-advertisement
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - bgp-vip-pool
+  peers:
+    - frr-peer

@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: bgp-vip-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.166.60/32
+  autoAssign: false
