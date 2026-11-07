@@ -1,0 +1,7 @@
+[frr_routers]
+frr-router ansible_host=192.168.199.132
+
+[frr_routers:vars]
+ansible_user=frr-router
+ansible_ssh_private_key_file=~/.ssh/ansible_frr
+ansible_python_interpreter=/usr/bin/python3

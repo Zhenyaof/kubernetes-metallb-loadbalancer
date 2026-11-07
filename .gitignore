@@ -1,0 +1,10 @@
+# Local Ansible inventory
+ansible/inventory/hosts.ini
+
+# SSH private keys
+*.pem
+*.key
+
+# Python cache
+__pycache__/
+*.pyc

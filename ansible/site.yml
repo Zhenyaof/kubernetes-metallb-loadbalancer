@@ -1,0 +1,3 @@
+---
+- import_playbook: playbooks/configure-frr.yml
+- import_playbook: playbooks/verify-frr.yml

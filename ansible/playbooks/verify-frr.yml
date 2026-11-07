@@ -1,0 +1,58 @@
+---
+- name: Verify FRR router health
+  hosts: frr_routers
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Check FRR service
+      ansible.builtin.command: systemctl is-active frr
+      register: frr_status
+      changed_when: false
+
+    - name: Assert FRR is active
+      ansible.builtin.assert:
+        that:
+          - frr_status.stdout == "active"
+        success_msg: "FRR service is active."
+        fail_msg: "FRR service is not active!"
+
+    - name: Check BGP neighbor summary
+      ansible.builtin.command:
+        cmd: vtysh -c "show bgp summary"
+      register: bgp_summary
+      changed_when: false
+
+    - name: Assert BGP neighbor is established
+      ansible.builtin.assert:
+        that:
+          - bgp_summary.stdout is search('(?m)^192\\.168\\.166\\.129\\s+4\\s+64512.*\\s+1\\s+0\\s+N/A')
+        success_msg: "BGP neighbor is established and one prefix is received."
+        fail_msg: "BGP neighbor is not established or the expected prefix is missing!"
+
+    - name: Check BGP route
+      ansible.builtin.command:
+        cmd: vtysh -c "show ip route 192.168.166.60/32"
+      register: bgp_route
+      changed_when: false
+
+    - name: Assert BGP route is installed
+      ansible.builtin.assert:
+        that:
+          - "'Known via \"bgp\"' in bgp_route.stdout"
+          - "'192.168.166.129' in bgp_route.stdout"
+        success_msg: "MetalLB VIP route is installed through the BGP peer."
+        fail_msg: "Expected BGP route is missing!"
+
+    - name: Check HTTP response from MetalLB VIP
+      ansible.builtin.command:
+        cmd: curl -I --connect-timeout 5 http://192.168.166.60
+      register: http_check
+      changed_when: false
+
+    - name: Assert HTTP returns 200
+      ansible.builtin.assert:
+        that:
+          - http_check.stdout is search('(?m)^HTTP/1\\.1 200\\b')
+        success_msg: "MetalLB VIP is serving HTTP 200."
+        fail_msg: "HTTP validation failed!"

@@ -1,0 +1,42 @@
+---
+- name: Configure FRR service
+  hosts: frr_routers
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Ensure FRR is installed
+      ansible.builtin.apt:
+        name: frr
+        state: present
+        update_cache: true
+
+    - name: Enable BGP daemon
+      ansible.builtin.lineinfile:
+        path: /etc/frr/daemons
+        regexp: '^bgpd='
+        line: 'bgpd=yes'
+      notify: Restart FRR
+
+    - name: Enable Zebra daemon
+      ansible.builtin.lineinfile:
+        path: /etc/frr/daemons
+        regexp: '^zebra='
+        line: 'zebra=yes'
+      notify: Restart FRR
+
+    - name: Ensure FRR starts automatically
+      ansible.builtin.systemd:
+        name: frr
+        enabled: true
+
+    - name: Ensure FRR is running
+      ansible.builtin.systemd:
+        name: frr
+        state: started
+
+  handlers:
+    - name: Restart FRR
+      ansible.builtin.systemd:
+        name: frr
+        state: restarted
